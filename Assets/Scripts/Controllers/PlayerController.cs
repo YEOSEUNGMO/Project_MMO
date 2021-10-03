@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         Managers.Input.MouseAction -= OnMouseClicked;
         Managers.Input.MouseAction += OnMouseClicked;
+
     }
 
     public void UpdateMoving()
