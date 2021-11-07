@@ -16,6 +16,12 @@ public class Managers : MonoBehaviour
     UIManager _ui = new UIManager();
     public static UIManager UI { get { return Instantance._ui; } }
 
+    SceneManagerEX _scene = new SceneManagerEX();
+    public static SceneManagerEX Scene { get { return Instantance._scene; } }
+
+    SoundManager _sound = new SoundManager();
+    public static SoundManager Sound { get { return Instantance._sound; } }
+
     private void Awake()
     {
         Init();
@@ -32,7 +38,15 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(obj);
             s_instance = obj.GetComponent<Managers>();
+            s_instance._sound.Init();
         }
+    }
+    public static void Clear()
+    { 
+        Input.Clear();
+        Sound.Clear();
+        Scene.Clear();
+        UI.Clear();
     }
 
     void Update()

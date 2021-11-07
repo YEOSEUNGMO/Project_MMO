@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 
-public class UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, UnityEngine.Object[]> objects = new Dictionary<Type, UnityEngine.Object[]>();
     protected enum Buttons
@@ -26,7 +26,7 @@ public class UI_Base : MonoBehaviour
         ItemIcon,
     }
 
-
+    public abstract void Init();
     protected void Bind<T>(Type type) where T : UnityEngine.Object
     {
         string[] names = Enum.GetNames(type);
@@ -52,14 +52,14 @@ public class UI_Base : MonoBehaviour
 
         return objs[index] as T;
     }
-
+    protected GameObject GetObject(int idx) { return Get<GameObject>(idx); }
     protected Text GetText(int index) { return Get<Text>(index); }
 
     protected Button GetButton(int index) { return Get<Button>(index); }
 
     protected Image GetImage(int index) { return Get<Image>(index); }
 
-    public static void AddUIEvent(GameObject go, Action<PointerEventData> action,Define.UIEvent type = Define.UIEvent.Click)
+    public static void BindEvent(GameObject go, Action<PointerEventData> action,Define.UIEvent type = Define.UIEvent.Click)
     {
         UI_EventHandler evt = Util.GetOrAddComponent<UI_EventHandler>(go);
         switch(type)
