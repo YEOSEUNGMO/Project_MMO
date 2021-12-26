@@ -22,6 +22,9 @@ public class Managers : MonoBehaviour
     SoundManager _sound = new SoundManager();
     public static SoundManager Sound { get { return Instantance._sound; } }
 
+    PoolManager _pool = new PoolManager();
+    public static PoolManager Pool { get { return Instantance._pool; } }
+
     private void Awake()
     {
         Init();
@@ -39,6 +42,7 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(obj);
             s_instance = obj.GetComponent<Managers>();
             s_instance._sound.Init();
+            s_instance._pool.Init();
         }
     }
     public static void Clear()
@@ -47,6 +51,7 @@ public class Managers : MonoBehaviour
         Sound.Clear();
         Scene.Clear();
         UI.Clear();
+        Pool.Clear();
     }
 
     void Update()
