@@ -22,6 +22,9 @@ public class Managers : MonoBehaviour
     SoundManager _sound = new SoundManager();
     public static SoundManager Sound { get { return Instantance._sound; } }
 
+    DataManager _data = new DataManager();
+    public static DataManager Data { get { return Instantance._data; } }
+
     private void Awake()
     {
         Init();
@@ -39,6 +42,7 @@ public class Managers : MonoBehaviour
             DontDestroyOnLoad(obj);
             s_instance = obj.GetComponent<Managers>();
             s_instance._sound.Init();
+            s_instance._data.Init();
         }
     }
     public static void Clear()
