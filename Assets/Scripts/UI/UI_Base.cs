@@ -17,13 +17,17 @@ public abstract class UI_Base : MonoBehaviour
         PointText,
         ScoreText,
     }
-    protected enum GameObjects
-    {
-        TestObject,
-    }
+    // protected enum GameObjects
+    // {
+    //     TestObject,
+    // }
     protected enum Images
     {
         ItemIcon,
+    }
+    private void Start()
+    {
+        Init();
     }
 
     public abstract void Init();

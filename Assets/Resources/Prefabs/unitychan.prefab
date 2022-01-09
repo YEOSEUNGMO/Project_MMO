@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2114086059584160426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5622641049840692042}
+  m_Layer: 0
+  m_Name: RightHandSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5622641049840692042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114086059584160426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.075, y: -0, z: 0.003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6418816150747047693}
+  m_Father: {fileID: 3028281868629975853}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3028281868630212097
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,7 +82,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 5d66334a6ce4d6f4db780f4ce478d9b0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -69,6 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28e1a6118f3e1a84da56c3e776e5cc2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _state: 1
+  _destPos: {x: 0, y: 0, z: 0}
 --- !u!54 &1450004750
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,9 +129,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3
-  m_Height: 1.5
+  m_Height: 1.6330109
   m_Direction: 1
-  m_Center: {x: 0, y: 0.75, z: 0}
+  m_Center: {x: 0, y: 0.8036157, z: 0}
 --- !u!195 &1450004751
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1736,7 +1769,18 @@ SkinnedMeshRenderer:
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300008, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
   m_Bones: []
-  m_BlendShapeWeights: []
+  m_BlendShapeWeights:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0, y: 1.3662745, z: 0.0315425}
@@ -3867,7 +3911,14 @@ SkinnedMeshRenderer:
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300012, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
   m_Bones: []
-  m_BlendShapeWeights: []
+  m_BlendShapeWeights:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0, y: 1.3495715, z: 0.06277}
@@ -4337,7 +4388,14 @@ SkinnedMeshRenderer:
   m_SkinnedMotionVectors: 1
   m_Mesh: {fileID: 4300010, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
   m_Bones: []
-  m_BlendShapeWeights: []
+  m_BlendShapeWeights:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   m_RootBone: {fileID: 0}
   m_AABB:
     m_Center: {x: 0, y: 1.3556354, z: 0.0608415}
@@ -5555,6 +5613,7 @@ Transform:
   - {fileID: 3028281868629975867}
   - {fileID: 3028281868629975811}
   - {fileID: 3028281868629975819}
+  - {fileID: 5622641049840692042}
   m_Father: {fileID: 3028281868629975855}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6971,3 +7030,65 @@ Transform:
   m_Father: {fileID: 3028281868629975913}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &5503291822366677534
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5622641049840692042}
+    m_Modifications:
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534506494944125235, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+      propertyPath: m_Name
+      value: Sword
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+--- !u!4 &6418816150747047693 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1534506494944034067, guid: 99d7f77d8e8fa4601bdec78b48db6aa4, type: 3}
+  m_PrefabInstance: {fileID: 5503291822366677534}
+  m_PrefabAsset: {fileID: 0}
