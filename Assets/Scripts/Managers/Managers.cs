@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Managers : MonoBehaviour
 {
+    #region  Contents
+    GameManager _game = new GameManager();
+    public static GameManager Game { get { return Instantance._game; } }
+    #endregion
+    #region  Core
     static Managers s_instance = null;
-    public static Managers Instantance { get{ Init(); return s_instance; } }
+    public static Managers Instantance { get { Init(); return s_instance; } }
 
     InputManager _input = new InputManager();
     public static InputManager Input { get { return Instantance._input; } }
@@ -25,13 +30,17 @@ public class Managers : MonoBehaviour
     DataManager _data = new DataManager();
     public static DataManager Data { get { return Instantance._data; } }
 
+    PoolManager _pool = new PoolManager();
+    public static PoolManager Pool { get { return Instantance._pool; } }
+    #endregion
+
     private void Awake()
     {
         Init();
     }
     public static void Init()
     {
-        if(s_instance == null)
+        if (s_instance == null)
         {
             GameObject obj = GameObject.Find("@Managers");
             if (obj == null)
@@ -43,10 +52,11 @@ public class Managers : MonoBehaviour
             s_instance = obj.GetComponent<Managers>();
             s_instance._sound.Init();
             s_instance._data.Init();
+            s_instance._pool.Init();
         }
     }
     public static void Clear()
-    { 
+    {
         Input.Clear();
         Sound.Clear();
         Scene.Clear();

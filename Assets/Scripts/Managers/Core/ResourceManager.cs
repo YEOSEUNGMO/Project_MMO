@@ -12,7 +12,7 @@ public class ResourceManager
     public GameObject Instantiate(string path, Transform parent = null)
     {
         GameObject prefab = Load<GameObject>($"Prefabs/{path}");
-        if(prefab==null)
+        if (prefab == null)
         {
             Debug.LogError($"Failedd to load prefab : {path}");
             return null;
@@ -29,6 +29,13 @@ public class ResourceManager
     {
         if (obj == null)
             return;
+
+        Poolable poolable = obj.GetComponent<Poolable>();
+        if (poolable != null)
+        {
+            Managers.Pool.Push(poolable);
+            return;
+        }
 
         Object.Destroy(obj);
     }

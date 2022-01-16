@@ -44,11 +44,11 @@ GameObject:
   - component: {fileID: 3028281868662077734}
   - component: {fileID: 1450004750}
   - component: {fileID: 1450004749}
-  - component: {fileID: 1450004751}
   - component: {fileID: 3461359397098607609}
+  - component: {fileID: -1293007593159455250}
   m_Layer: 0
-  m_Name: unitychan
-  m_TagString: Untagged
+  m_Name: UnityChan
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _state: 1
+  _lockTarget: {fileID: 0}
   _destPos: {x: 0, y: 0, z: 0}
 --- !u!54 &1450004750
 Rigidbody:
@@ -116,7 +117,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &1450004749
 CapsuleCollider:
@@ -132,28 +133,6 @@ CapsuleCollider:
   m_Height: 1.6330109
   m_Direction: 1
   m_Center: {x: 0, y: 0.8036157, z: 0}
---- !u!195 &1450004751
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3028281868630212097}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &3461359397098607609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +153,19 @@ MonoBehaviour:
   _moveSpeed: 0
   _exp: 0
   _gold: 0
+--- !u!114 &-1293007593159455250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3028281868630212097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6a37e561c5d6412aa80d1330da80c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
 --- !u!1 &3028281868630212099
 GameObject:
   m_ObjectHideFlags: 0

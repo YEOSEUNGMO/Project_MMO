@@ -12,7 +12,7 @@ public class PoolManager
 
         Stack<Poolable> _poolStack = new Stack<Poolable>();
 
-        public void Init(GameObject original,int count = 5)
+        public void Init(GameObject original, int count = 5)
         {
             Origianl = original;
             Root = new GameObject().transform;
@@ -44,6 +44,7 @@ public class PoolManager
         public Poolable Pop(Transform parent)
         {
             Poolable poolable = null;
+
             if (_poolStack.Count > 0)
                 poolable = _poolStack.Pop();
             else
@@ -56,6 +57,7 @@ public class PoolManager
 
             poolable.transform.parent = parent;
             poolable.IsUsing = true;
+            
             return poolable;
         }
     }
@@ -64,25 +66,13 @@ public class PoolManager
     Transform _root = null;
     public void Init()
     {
-        if(_root==null)
+        if (_root == null)
         {
             _root = new GameObject { name = "@Pool_Root" }.transform;
             Object.DontDestroyOnLoad(_root);
         }
     }
 
-    public void Push(Poolable poolable)
-    {
-        string name = poolable.gameObject.name;
-
-        if(_pool.ContainsKey(name)==false)
-        {
-            GameObject.Destroy(poolable.gameObject);
-            return;
-        }
-
-        _pool[name].Push(poolable);
-    }
 
     public void CreatPool(GameObject original, int count = 5)
     {
@@ -93,10 +83,23 @@ public class PoolManager
         _pool.Add(original.name, pool);
     }
 
+    public void Push(Poolable poolable)
+    {
+        string name = poolable.gameObject.name;
+        if (_pool.ContainsKey(name) == false)
+        {
+            GameObject.Destroy(poolable.gameObject);
+            return;
+        }
+
+        _pool[name].Push(poolable);
+    }
+
     public Poolable Pop(GameObject original, Transform parent)
     {
         if (_pool.ContainsKey(original.name) == false)
             CreatPool(original);
+
         return _pool[original.name].Pop(parent);
     }
 

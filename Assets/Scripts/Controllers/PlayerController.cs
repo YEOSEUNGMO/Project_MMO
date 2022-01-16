@@ -3,57 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseController
 {
-    public enum PlayerState
-    {
-        Die,
-        Idle,
-        Move,
-        Skill,
-    }
-    [SerializeField]
-    PlayerState _state = PlayerState.Idle;
-    public PlayerState State
-    {
-        get { return _state; }
-        set
-        {
-            _state = value;
-            switch (_state)
-            {
-                case PlayerState.Die:
-                    break;
-                case PlayerState.Idle:
-                    anim.CrossFade("WAIT", 0.1f);
-                    break;
-                case PlayerState.Move:
-                    anim.CrossFade("RUN", 0.1f);
-                    break;
-                case PlayerState.Skill:
-                    anim.CrossFade("ATTACK", 0.1f, -1, 0);
-                    break;
-            }
-        }
-    }
-    // float _speed = 10f;
-
-    [SerializeField] Vector3 _destPos;
-    Animator anim = null;
+    int clickLayer = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Monster);
 
     PlayerStat _stat;
-
-    void Start()
+    bool _stopSkill = false;
+    public override void Init()
     {
+        WorldObjectType = Define.WorldObject.Plyaer;
         _stat = gameObject.GetOrAddComponent<PlayerStat>();
-        anim = GetComponent<Animator>();
+
         Managers.Input.MouseAction -= OnMouseEvent;
         Managers.Input.MouseAction += OnMouseEvent;
-
-        Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
+        if (gameObject.GetComponentInChildren<UI_HPBar>() == null)
+            Managers.UI.MakeWorldSpaceUI<UI_HPBar>(transform);
     }
 
-    public void UpdateMoving()
+    protected override void UpdateMoving()
     {
         // 몬스터가 내 사정거리내에 들어 왔을때 공격.
         if (_lockTarget != null)
@@ -61,7 +28,7 @@ public class PlayerController : MonoBehaviour
             float dist = (_destPos - transform.position).magnitude;
             if (dist <= 1)
             {
-                State = PlayerState.Skill;
+                State = Define.State.Skill;
                 return;
             }
         }
@@ -70,21 +37,23 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = _destPos - transform.position;
         if (dir.magnitude < 0.1f)
         {
-            State = PlayerState.Idle;
+            State = Define.State.Idle;
         }
         else
         {
-            float moveDist = Mathf.Clamp(Time.deltaTime * _stat.MoveSpeed, 0, dir.magnitude);
             Debug.DrawRay(transform.position + Vector3.up * 0.5f, dir.normalized, Color.blue);
             if (Physics.Raycast(transform.position + Vector3.up * 0.5f, dir, 1.0f, LayerMask.GetMask("Block")))
             {
                 if (Input.GetMouseButton(0) == false)
-                    State = PlayerState.Idle;
+                    State = Define.State.Idle;
                 return;
             }
 
-            NavMeshAgent nma = gameObject.GetOrAddComponent<NavMeshAgent>();
-            nma.Move(dir.normalized * moveDist);
+            float moveDist = Mathf.Clamp(Time.deltaTime * _stat.MoveSpeed, 0, dir.magnitude);
+            transform.position += (dir.normalized * moveDist);
+
+            // NavMeshAgent nma = gameObject.GetOrAddComponent<NavMeshAgent>();
+            // nma.Move(dir.normalized * moveDist);
 
 
             // transform.position += (dir.normalized * moveDist);
@@ -92,12 +61,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void UpdateIdle()
+    protected override void UpdateIdle()
     {
 
     }
 
-    void UpdateSkill()
+    protected override void UpdateSkill()
     {
         if (_lockTarget != null)
         {
@@ -109,39 +78,21 @@ public class PlayerController : MonoBehaviour
 
     void OnHItEvent()
     {
-        if(_lockTarget != null)
+        if (_lockTarget != null)
         {
             Stat targetStat = _lockTarget.GetComponent<Stat>();
-            int damage = Mathf.Max(0,_stat.Attack-targetStat.Defense);
-            Debug.Log($"Damage : {damage}");
+            targetStat.OnAttacked(_stat);
         }
         if (_stopSkill)
         {
-            State = PlayerState.Idle;
+            State = Define.State.Idle;
         }
         else
         {
-            State = PlayerState.Skill;
+            State = Define.State.Skill;
         }
     }
 
-    void Update()
-    {
-        switch (State)
-        {
-            case PlayerState.Die:
-                break;
-            case PlayerState.Move:
-                UpdateMoving();
-                break;
-            case PlayerState.Idle:
-                UpdateIdle();
-                break;
-            case PlayerState.Skill:
-                UpdateSkill();
-                break;
-        }
-    }
 
     public void OnKeyboard()
     {
@@ -167,28 +118,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    int clickLayer = (1 << (int)Define.Layer.Ground) | (1 << (int)Define.Layer.Monster);
 
-    GameObject _lockTarget = null;
-
-    bool _stopSkill = false;
     public void OnMouseEvent(Define.MouseEvent mouseEvent)
     {
         switch (State)
         {
-            case PlayerState.Idle:
+            case Define.State.Idle:
                 OnMouseEvent_IdleRun(mouseEvent);
                 break;
-            case PlayerState.Move:
+            case Define.State.Move:
                 OnMouseEvent_IdleRun(mouseEvent);
                 break;
-            case PlayerState.Skill:
+            case Define.State.Skill:
                 if (mouseEvent == Define.MouseEvent.PointerUp)
                 {
                     _stopSkill = true;
                 }
                 break;
-            case PlayerState.Die:
+            case Define.State.Die:
                 break;
         }
     }
@@ -206,7 +153,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _destPos = hit.point;
                     _destPos.y = transform.position.y;
-                    State = PlayerState.Move;
+                    State = Define.State.Move;
                     _stopSkill = false;
 
                     if (hit.collider.gameObject.layer == (int)Define.Layer.Monster)
