@@ -17,7 +17,11 @@ public class GameScene : BaseScene
 
         GameObject player = Managers.Game.Spawn(Define.WorldObject.Plyaer, "UnityChan");
         Camera.main.gameObject.GetOrAddComponent<CameraController>().SetPlayer(player);
-        Managers.Game.Spawn(Define.WorldObject.Monster, "Zombie");
+
+        // Managers.Game.Spawn(Define.WorldObject.Monster, "Zombie");
+        GameObject go = new GameObject { name = "SpawningPool" };
+        SpawningPool pool = go.GetOrAddComponent<SpawningPool>();
+        pool.SetKeepMonsterCount(5);
     }
     public override void Clear()
     {

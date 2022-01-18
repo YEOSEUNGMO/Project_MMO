@@ -50,17 +50,19 @@ public class Managers : MonoBehaviour
             }
             DontDestroyOnLoad(obj);
             s_instance = obj.GetComponent<Managers>();
+            s_instance._pool.Init();
             s_instance._sound.Init();
             s_instance._data.Init();
-            s_instance._pool.Init();
         }
     }
     public static void Clear()
-    {
+    { 
         Input.Clear();
         Sound.Clear();
         Scene.Clear();
         UI.Clear();
+
+        Pool.Init();
     }
 
     void Update()
